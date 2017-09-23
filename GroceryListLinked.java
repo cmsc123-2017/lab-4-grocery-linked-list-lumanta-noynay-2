@@ -6,7 +6,10 @@ class GroceryListLinked implements IGroceryList {
   GroceryListLinked() {}
   
   public boolean add(GroceryItem item) {
-    return false;
+    GroceryNode newItem = new GroceryNode(item, head);
+    head = newItem;
+    size++;
+    return true;
   }
   
   public boolean remove(String name) {
@@ -14,11 +17,14 @@ class GroceryListLinked implements IGroceryList {
   }
   
   public boolean markAsBought(String name) {
-    return false;
   }
   
   public void display() {
-    
+    GroceryNode current = head;
+    while(current != null) {
+      System.out.println(current.data);
+      data = data.next;
+      
   }
 }
 
