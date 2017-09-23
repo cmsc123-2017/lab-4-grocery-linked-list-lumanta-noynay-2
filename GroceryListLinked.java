@@ -1,58 +1,111 @@
 class GroceryListLinked implements IGroceryList {
-  
-  GroceryNode head = null;
-  GroceryNode previous;
-  int size = 0;
-  
-  GroceryListLinked() {}
-  
-  public boolean add(GroceryItem item) {
-    GroceryNode newItem = new GroceryNode(item, head);
-    head = newItem;
-    size++;
-    return true;
+
+ GroceryNode head = null;
+ GroceryNode previous = null;
+ int size = 0;
+
+ // CONSTRUCTOR
+ GroceryListLinked() {
+ }
+ 
+ 
+ // TEMPLATE:
+ /* Fields:
+  * 
+  * Methods:
+  * add(GroceryItem item)      -- boolean
+  * remove(String name)        -- boolean
+  * markAsBought(String name)  -- boolean
+  * display()                  -- void
+  * isOnTheList(String name)   -- boolean
+  * 
+  * 
+  * Methods of GroceryItem:
+  * toString()       -- String
+  * equals(Object o) -- boolean
+  * 
+  */
+ 
+ // GroceryItem -> boolean
+ // Returns true if the item is successfully added to the list.
+ public boolean add(GroceryItem item) {
+  GroceryNode newItem = new GroceryNode(item, head);
+  head = newItem;
+  size++;
+  return true;
+ }
+ 
+ // Template
+ /*  this.item
+  *  newItem
+  */
+
+ // String -> boolean
+ // Returns true,iff an item is successfully removed from the list.
+ public boolean remove(String name) {
+  if (isOnTheList(name) == null || size == 0) {
+   return false;
   }
-  
-  public boolean remove(String name) {
-    if (isNamed(name) == null || size == 0){
-      return false;
-    }
-    if (isNamed(name) == head){
-      head = head.next;
-    } esle{
-      GroceryNode newItem = isNamed(name).next;
-      prev.next = newItem;
-    }
-    size--;
-    return true;
+  if (isOnTheList(name) == head) {
+   head = head.next;
+  } else {
+   GroceryNode newItem = isOnTheList(name).next;
+   previous.next = newItem;
   }
-  
-  public boolean markAsBought(String name) {
-    if(isNamed(name) == null)
-      return false;
-    isNamed(name).data.bought();
-      return true;
+  size--;
+  return true;
+ }
+
+ // String -> GroceryNode
+ // Returns true if the name of the item is on the list.
+ public GroceryNode isOnTheList(String name) {
+  GroceryNode current = head;
+  while (!(current.data.equals(new GroceryItem(name, 0)))) {
+   if (current.next == null) {
+    System.out.println("Item not on the List");
+    return null;
+   }
+   previous = current;
+   current = head.next;
   }
-  
-  public void display() {
-    GroceryNode newItem = head;
-    while(newItem != null) {
-      System.out.println(newItem.data);
-      data = data.next;
-      
+  return current;
+ }
+
+ // String -> boolean
+ // Returns true if an item is successfully bought and mark the box with an "x"
+ public boolean markAsBought(String name) {
+  if (isOnTheList(name) == null) {
+   return false;
   }
+  isOnTheList(name).data.isBought = true;
+  return true;
+ }
+
+ // void -> void
+ // Displays the information stored on the list.
+ public void display() {
+  GroceryNode current = head;
+  while (current != null) {
+   System.out.println(current.data);
+   current = current.next;
+  }
+ }
+
 }
 
+// Class Node
 class GroceryNode {
-  GroceryItem data;
-  GroceryNode next;
-  
-  GroceryNode(GroceryItem data, GroceryNode next) {
-    this.data = data;
-    this.next = next;
-  }
-  
-  public String toString(){
-    return this.data.toString();
-  }
+ GroceryItem data;
+ GroceryNode next;
+
+ GroceryNode(GroceryItem data, GroceryNode next) {
+  this.data = data;
+  this.next = next;
+ }
+
+ // void -> string
+ // Displays the name of an item saved on the list.
+ public String toString() {
+  return this.data.toString();
+ }
 }
