@@ -1,6 +1,7 @@
 class GroceryListLinked implements IGroceryList {
   
   GroceryNode head = null;
+  GroceryNode previous;
   int size = 0;
   
   GroceryListLinked() {}
@@ -13,16 +14,30 @@ class GroceryListLinked implements IGroceryList {
   }
   
   public boolean remove(String name) {
-    return false;
+    if (isNamed(name) == null || size == 0){
+      return false;
+    }
+    if (isNamed(name) == head){
+      head = head.next;
+    } esle{
+      GroceryNode newItem = isNamed(name).next;
+      prev.next = newItem;
+    }
+    size--;
+    return true;
   }
   
   public boolean markAsBought(String name) {
+    if(isNamed(name) == null)
+      return false;
+    isNamed(name).data.bought();
+      return true;
   }
   
   public void display() {
-    GroceryNode current = head;
-    while(current != null) {
-      System.out.println(current.data);
+    GroceryNode newItem = head;
+    while(newItem != null) {
+      System.out.println(newItem.data);
       data = data.next;
       
   }
@@ -35,5 +50,9 @@ class GroceryNode {
   GroceryNode(GroceryItem data, GroceryNode next) {
     this.data = data;
     this.next = next;
+  }
+  
+  public String toString(){
+    return this.data.toString();
   }
 }
